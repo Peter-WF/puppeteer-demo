@@ -1,0 +1,18 @@
+{
+  "apps": [
+    {
+      "name": "puppeteer-demo-api",
+      "script": "index.js",
+      "watch": [],
+      "ignore_watch": [
+        "node_modules",
+        "logs"
+      ],
+      "instances": 4,
+      "node_args": "--harmony",
+      "exec_mode": "cluster",
+      "error_file": "./logs/puppeteer-demo-api-err.log",
+      "out_file": "./logs/puppeteer-demo-api-out.log"
+    }
+  ]
+}
