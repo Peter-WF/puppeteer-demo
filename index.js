@@ -15,16 +15,17 @@ app.use(bodyParser.json())
 app.use('/case', express.static('case'));
 
 app.use('/check', function (req, res) {
-    if (req.body.url) {
+    if (req.body && req.body.url) {
         res.send({
             success: false,
             description: 'url 不能为空'
         })
+        return
     }
     (async() => {
         const browser = await puppeteer.launch({
-            args: ['--no-sandbox']	
-	    // headless: false,//不使用无头chrome模式
+            args: ['--no-sandbox']
+            // headless: false,//不使用无头chrome模式
             // executablePath: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome',//path to your chrome
         })
         const page = await browser.newPage()
@@ -33,7 +34,7 @@ app.use('/check', function (req, res) {
         await page.goBack()
         const currentUrl = await page.url();
         if (currentUrl.indexOf('baidu.com') === -1) {
-            const key = req.body.url.replace(/[\/\.]/g,'-')
+            const key = req.body.url.replace(/[\/\.]/g, '-')
             await page.screenshot({ path: `case/${key}.png` })
             res.send({
                 success: false,
@@ -49,5 +50,5 @@ app.use('/check', function (req, res) {
 })
 
 app.listen(port, function () {
-    console.log('Example app listening on port 3000!')
+    console.log('Example app listening on port 3002!')
 })
