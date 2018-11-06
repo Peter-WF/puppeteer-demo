@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 app.use('/case', express.static('case'));
 
 app.use('/check', function (req, res) {
-    if (req.body && req.body.url) {
+    if (!req.body || !req.body.url) {
         res.send({
             success: false,
             description: 'url 不能为空'
