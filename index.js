@@ -15,6 +15,12 @@ app.use(bodyParser.json())
 app.use('/case', express.static('case'));
 
 app.use('/check', function (req, res) {
+    if (req.body.url) {
+        res.send({
+            success: false,
+            description: 'url 不能为空'
+        })
+    }
     (async() => {
         const browser = await puppeteer.launch({
             // headless: false,//不使用无头chrome模式
@@ -31,6 +37,10 @@ app.use('/check', function (req, res) {
             res.send({
                 success: false,
                 data: `http://${ip}:${port}/case/${key}.png`
+            })
+        } else {
+            res.send({
+                success: true
             })
         }
         await browser.close()
