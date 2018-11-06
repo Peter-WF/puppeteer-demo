@@ -23,7 +23,8 @@ app.use('/check', function (req, res) {
     }
     (async() => {
         const browser = await puppeteer.launch({
-            // headless: false,//不使用无头chrome模式
+            args: ['--no-sandbox']	
+	    // headless: false,//不使用无头chrome模式
             // executablePath: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome',//path to your chrome
         })
         const page = await browser.newPage()
